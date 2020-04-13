@@ -1,0 +1,51 @@
+class Main {
+    field Array grid;
+    field int width, height;
+    field boolean running;
+    field Paddle paddle;
+    field Ball ball;
+    constructor Main new() {
+        running = true;
+        height = 6;
+        width = 256;
+        grid = Array.new(height);
+        var int i,j;
+        let j = 0;
+        let i = 0;
+        var int n;
+        while(i < n) {
+            grid[i] = Array.new(width);
+            let i = i + 1;
+        }
+        let i = 0;
+        let j = 0;
+        while(i < height) {
+            while(j < width) {
+                grid[i][j] = true;
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        let paddle = Paddle.new(38, 2, 107,500);
+        let ball = Ball.new(2,2 156, 128);
+    }
+    method void run() {
+        while(running) {
+            var char key;
+            let key = Keyboard.keyPressed();
+            if(key = 27) {
+                running = false;
+            }
+            ball.update(grid, width, height);
+            ball.draw();
+            paddle.update();
+            paddle.draw();
+        }
+        return;
+    }
+    function void main() {
+        let Main game = Main.new();
+        game.run();
+        return;
+    }
+}

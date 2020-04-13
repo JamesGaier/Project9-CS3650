@@ -1,0 +1,64 @@
+class Ball {
+    field int x, y;
+    field int width, height;
+    field int velX, velY;
+
+    constructor Ball new(int x, int y, int width, int height) {
+        let x = x;
+        let y = y;
+        velX = 0;
+        velY = -1;
+        let width = width;
+        let height = height;
+        return this;
+    }
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(x, y, x+width, y+height);
+        return;
+    }
+    method void update(Array blocks, int width, int height) {
+        var int dirX, dirY;
+        let dirX = 1;
+        let dirY = 1;
+        if(do collision(blocks, width, height)) {
+            block[x][y] = false;
+            let dirY = -Random.randRange(-1);
+            let dirX = -Random.randRange(-1);
+        }
+        let x = x + dirX*velX;
+        let y = y + dirY*velY;
+        return;
+    }
+    method boolean collision(Array blocks, Paddle paddle, int w, int h) {
+        var int i, j;
+        let i = 0;
+        let j = 0;
+        let boolean col = false;
+        while(i < w) {
+            while(j < h) {
+                if(row[i][j]) {
+                    if (i < x + width &
+                        i + 1 > x &
+                        j < y + height &
+                        j + 1 > y) {
+                            col = true;
+                    }
+                    if(paddle.x < x + width &
+                        paddle.x + paddle.width > x &
+                        paddle.y < y + height &
+                        paddle.y + paddle.height > y) {
+                            col = true;
+                    }
+                }
+                j = j + 1;
+            }
+            i = i + 1;
+        }
+        return col;
+    }
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}
